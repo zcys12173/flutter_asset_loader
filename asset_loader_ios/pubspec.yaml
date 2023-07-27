@@ -1,4 +1,4 @@
-name: flutter_asset_loader
+name: asset_loader_ios
 description: A new Flutter project.
 version: 0.0.1
 homepage:
@@ -10,11 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  asset_loader_android:
-    path: ../asset_loader_android
-  asset_loader_ios:
-    path: ../asset_loader_ios
-
+  asset_loader_platform_interface:
+    path: ../asset_loader_platform_interface
 
 dev_dependencies:
   flutter_test:
@@ -38,10 +35,9 @@ flutter:
   # adding or updating assets for this project.
   plugin:
     platforms:
-      android:
-        default_package: asset_loader_android
       ios:
-        default_package: asset_loader_ios
+        pluginClass: AssetLoaderIosPlugin
+        dartPluginClass: AssetLoaderIos
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
