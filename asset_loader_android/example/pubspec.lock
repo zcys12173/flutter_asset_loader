@@ -8,6 +8,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  asset_loader_platform_interface:
+    dependency: transitive
+    description:
+      path: "../../asset_loader_platform_interface"
+      relative: true
+    source: path
+    version: "0.0.1"
   async:
     dependency: transitive
     description:

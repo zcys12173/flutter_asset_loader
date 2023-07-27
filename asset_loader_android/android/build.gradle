@@ -1,4 +1,4 @@
-group 'com.example.asset_loader_android'
+group 'io.github.zcys12173.asset_loader_android'
 version '1.0-SNAPSHOT'
 
 buildscript {

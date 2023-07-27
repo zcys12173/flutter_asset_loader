@@ -10,7 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^2.0.2
+  asset_loader_android:
+    path: ../asset_loader_android
+
 
 dev_dependencies:
   flutter_test:
@@ -35,10 +37,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: io.github.zcys12173.flutter.asset_loader.flutter_asset_loader
-        pluginClass: FlutterAssetLoaderPlugin
-      ios:
-        pluginClass: FlutterAssetLoaderPlugin
+        default_package: asset_loader_android
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

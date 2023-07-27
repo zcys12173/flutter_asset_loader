@@ -1,8 +1,5 @@
+library asset_loader_android;
 
-import 'asset_loader_android_platform_interface.dart';
+export 'package:asset_loader_android/src/asset_loader_android_impl.dart';
 
-class AssetLoaderAndroid {
-  Future<String?> getPlatformVersion() {
-    return AssetLoaderAndroidPlatform.instance.getPlatformVersion();
-  }
-}
+export 'package:asset_loader_platform_interface/asset_loader_platform_interface.dart' show AssetLoaderPlatform;

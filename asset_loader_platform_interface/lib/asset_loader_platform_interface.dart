@@ -1,7 +1,3 @@
 library asset_loader_platform_interface;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'package:asset_loader_platform_interface/src/asset_loader_platform_interface_impl.dart';
