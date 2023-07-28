@@ -19,7 +19,10 @@ dependencies:
       path: ./asset_loader_plugin
 ```
 
-## 用法
+## 用法  
+
+在根Widget外层使用AssetBundleWidget包裹  
+
 ```dart
 class _MyAppState extends State<MyApp> {
   @override
@@ -44,3 +47,7 @@ class _MyAppState extends State<MyApp> {
   }
 }
 ```
+
+`priority`:加载优先级;  
+`LoadPriority.native`:优先从原生加载;  
+`LoadPriority.flutter`:优先从Flutter侧加载（默认值）;  
