@@ -11,9 +11,15 @@ dependencies:
   flutter:
     sdk: flutter
   asset_loader_android:
-    path: ../asset_loader_android
+    git:
+      url: https://github.com/zcys12173/flutter_asset_loader.git
+      path: ./asset_loader_android
+#    path: ../asset_loader_android
   asset_loader_ios:
-    path: ../asset_loader_ios
+    git:
+      url: https://github.com/zcys12173/flutter_asset_loader.git
+      path: ./asset_loader_ios
+#    path: ../asset_loader_ios
 
 
 dev_dependencies:

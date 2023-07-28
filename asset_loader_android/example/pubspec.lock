@@ -11,9 +11,11 @@ packages:
   asset_loader_platform_interface:
     dependency: transitive
     description:
-      path: "../../asset_loader_platform_interface"
-      relative: true
-    source: path
+      path: asset_loader_platform_interface
+      ref: HEAD
+      resolved-ref: "948f974b69fabfc5ef8a66026290ffdad8fba727"
+      url: "https://github.com/zcys12173/flutter_asset_loader.git"
+    source: git
     version: "0.0.1"
   async:
     dependency: transitive

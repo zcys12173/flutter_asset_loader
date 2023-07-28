@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return AssetBundleWidget(
-        priority: LoadPriority.native,
+        priority: LoadPriority.flutter,
         child: MaterialApp(
           home: Scaffold(
             appBar: AppBar(
