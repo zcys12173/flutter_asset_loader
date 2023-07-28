@@ -1,5 +1,5 @@
 
-
+import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 abstract class AssetLoaderPlatform extends PlatformInterface {
@@ -24,5 +24,8 @@ abstract class AssetLoaderPlatform extends PlatformInterface {
   }
 
   Future<String?> getPlatformVersion();
+
+  Future<ByteData> load(String key);
+
 
 }

@@ -1,4 +1,16 @@
 package io.github.zcys12173.asset_loader_android
 
-class AssetLoader {
+
+object AssetLoader {
+    var listeners:OnAssetLoadListener?=null
+
+
+    fun load(key:String):ByteArray?{
+        return listeners?.load(key)
+    }
+
+}
+
+interface OnAssetLoadListener{
+    fun load(key:String): ByteArray?
 }

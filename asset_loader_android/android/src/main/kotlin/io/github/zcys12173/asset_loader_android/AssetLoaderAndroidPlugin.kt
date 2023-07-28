@@ -1,35 +1,47 @@
 package io.github.zcys12173.asset_loader_android
 
-import androidx.annotation.NonNull
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.plugin.common.MethodCall
-import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
+import java.nio.ByteBuffer
+import java.nio.charset.Charset
 
 /** AssetLoaderAndroidPlugin */
-class AssetLoaderAndroidPlugin: FlutterPlugin, MethodCallHandler {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
-  private lateinit var channel : MethodChannel
 
-  override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "asset_loader_android")
-    channel.setMethodCallHandler(this)
-  }
+private const val HANDLER_NAME = "asset/load"
 
-  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
-      result.notImplemented()
+class AssetLoaderAndroidPlugin : FlutterPlugin {
+    override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        flutterPluginBinding.binaryMessenger.setMessageHandler(HANDLER_NAME) { message, reply ->
+            val result:ByteBuffer? = message?.run {
+                val assetKey = decodeMessage(message)
+                val byteArray = AssetLoader.load(assetKey)
+                byteArray?.run {
+                    ByteBuffer.allocateDirect(size).apply {
+                        put(byteArray)
+                    }
+                }
+            }
+            reply.reply(result)
+        }
     }
-  }
 
-  override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-    channel.setMethodCallHandler(null)
-  }
+
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        binding.binaryMessenger.setMessageHandler(HANDLER_NAME, null)
+    }
+
+    private fun decodeMessage(message: ByteBuffer): String {
+        val bytes: ByteArray
+        val offset: Int
+        val length = message.remaining()
+        if (message.hasArray()) {
+            bytes = message.array()
+            offset = message.arrayOffset()
+        } else {
+            bytes = ByteArray(length)
+            message[bytes]
+            offset = 0
+        }
+        return String(bytes, offset, length, Charset.forName("UTF8"))
+    }
+
 }
