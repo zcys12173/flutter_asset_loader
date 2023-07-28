@@ -1,5 +1,5 @@
 # flutter_asset_loader
-Flutter资源加载插件。支持flutter加载原生侧的图片，防止Flutter和原生侧的图片重复。适用于混合工程，尤其是纯原生向Flutter迁移。
+Flutter资源加载插件。支持flutter加载原生侧的图片，防止Flutter和原生侧的图片重复。适用于混合工程，尤其是纯原生向Flutter迁移阶段。
 
 ## 支持的功能
 1. 图片加载，可以从原生侧加载图片资源
