@@ -8,6 +8,17 @@ Flutter资源加载插件。支持flutter加载原生侧的图片，防止Flutte
 ## 支持的系统
 `android` `ios`
 
+## 引用
+`pubspec.yaml`
+
+```yaml
+dependencies:
+  flutter_asset_loader:
+    git:
+      url: https://github.com/zcys12173/flutter_asset_loader.git
+      path: ./asset_loader_plugin
+```
+
 ## 用法
 ```dart
 class _MyAppState extends State<MyApp> {
