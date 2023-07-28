@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_asset_loader/flutter_asset_loader.dart';
 
 void main() {
@@ -14,24 +13,24 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return AssetBundleWidget(child: MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Image.asset("framework_close"),
-        ),
-      ),
-    ));
+    return AssetBundleWidget(
+        priority: LoadPriority.native,
+        child: MaterialApp(
+          home: Scaffold(
+            appBar: AppBar(
+              title: const Text('Plugin example app'),
+            ),
+            body: Center(
+              child: Image.asset("asset/image/framework_close.png"),
+            ),
+          ),
+        ));
   }
 }

@@ -9,6 +9,7 @@ import java.nio.charset.Charset
 private const val HANDLER_NAME = "asset/load"
 
 class AssetLoaderAndroidPlugin : FlutterPlugin {
+
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         flutterPluginBinding.binaryMessenger.setMessageHandler(HANDLER_NAME) { message, reply ->
             val result:ByteBuffer? = message?.run {
@@ -21,6 +22,10 @@ class AssetLoaderAndroidPlugin : FlutterPlugin {
                 }
             }
             reply.reply(result)
+        }
+
+        if(AssetLoader.listener == null){
+            AssetLoader.listener = DefaultAssetLoadListener(flutterPluginBinding.applicationContext)
         }
     }
 
