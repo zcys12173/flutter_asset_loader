@@ -1,11 +1,13 @@
+import 'dart:convert';
 
 import 'package:asset_loader_platform_interface/asset_loader_platform_interface.dart';
 import 'package:flutter/services.dart';
 
-class AssetLoaderIos extends AssetLoaderPlatform{
-  static void registerWith(){
+class AssetLoaderIos extends AssetLoaderPlatform {
+  static void registerWith() {
     AssetLoaderPlatform.instance = AssetLoaderIos();
   }
+
   @override
   Future<String?> getPlatformVersion() async {
     return "ios_version";
@@ -13,7 +15,20 @@ class AssetLoaderIos extends AssetLoaderPlatform{
 
   @override
   Future<ByteData> load(String key) {
-    return rootBundle.load(key);
+    final Uint8List encoded =
+        utf8.encoder.convert(Uri(path: Uri.encodeFull(key)).path);
+    final Future<ByteData>? future = ServicesBinding
+        .instance.defaultBinaryMessenger
+        .send('asset/load', encoded.buffer.asByteData())
+        ?.then((ByteData? asset) {
+      if (asset == null) {
+        return rootBundle.load(key);
+      }
+      return asset;
+    });
+    if (future == null) {
+      return rootBundle.load(key);
+    }
+    return future;
   }
-
 }
