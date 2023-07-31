@@ -21,7 +21,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return AssetBundleWidget(
-        priority: LoadPriority.flutter,
+        keyBuilder: (String key){
+          print("on key builder call : $key");
+          return key;
+        },
+        priority: LoadPriority.native,
         child: MaterialApp(
           home: Scaffold(
             appBar: AppBar(
