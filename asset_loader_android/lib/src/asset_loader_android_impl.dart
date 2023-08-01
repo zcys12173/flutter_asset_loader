@@ -9,22 +9,12 @@ class AssetLoaderAndroid extends AssetLoaderPlatform{
   }
 
   @override
-  Future<String?> getPlatformVersion() async {
-    return "android_version";
-  }
-
-  @override
-  Future<ByteData> load(String key) {
+  Future<ByteData> load(String key) async{
     final Uint8List encoded = utf8.encoder.convert(Uri(path: Uri.encodeFull(key)).path);
-    final Future<ByteData>? future = ServicesBinding.instance.defaultBinaryMessenger.send('asset/load', encoded.buffer.asByteData())?.then((ByteData? asset) {
-      if (asset == null) {
-        return rootBundle.load(key);
-      }
-      return asset;
-    });
-    if (future == null) {
-      return rootBundle.load(key);
+    var result =  await ServicesBinding.instance.defaultBinaryMessenger.send('asset/load', encoded.buffer.asByteData());
+    if(result == null){
+      throw Exception("asset $key not found from android");
     }
-    return future;
+    return result;
   }
 }

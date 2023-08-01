@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
           print("on key builder call : $key");
           return key;
         },
-        priority: LoadPriority.native,
+        priority: LoadPriority.nativeOnly,
         child: MaterialApp(
           home: Scaffold(
             appBar: AppBar(

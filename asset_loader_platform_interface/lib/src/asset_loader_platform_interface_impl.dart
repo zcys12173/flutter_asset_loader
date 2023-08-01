@@ -23,8 +23,6 @@ abstract class AssetLoaderPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion();
-
   Future<ByteData> load(String key);
 
 

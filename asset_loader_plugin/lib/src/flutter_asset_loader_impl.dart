@@ -1,54 +1,39 @@
-import 'package:asset_loader_android/asset_loader_android.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_asset_loader/src/flutter_asset_bundle.dart';
 
 class AssetBundleWidget extends StatelessWidget {
   final Widget child;
 
   AssetBundleWidget(
-      {super.key, required this.child, priority = LoadPriority.flutter,OnKeyBuilder? keyBuilder}) {
-    _assetLoaderBundle
-    ..priority = priority
-    ..keyBuilder = keyBuilder;
+      {super.key,
+      required this.child,
+      priority = LoadPriority.flutter,
+      OnKeyBuilder? keyBuilder}) {
+    assetLoaderBundle
+      ..priority = priority
+      ..keyBuilder = keyBuilder;
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultAssetBundle(bundle: _assetLoaderBundle, child: child);
+    return DefaultAssetBundle(bundle: assetLoaderBundle, child: child);
   }
 }
 
-var _assetLoaderBundle = _FlutterAssetBundle(priority: LoadPriority.flutter);
+var assetLoaderBundle = FlutterAssetBundle();
 
-class _FlutterAssetBundle extends CachingAssetBundle {
-  LoadPriority priority;
-  OnKeyBuilder? keyBuilder;
+enum LoadPriority {
+  ///优先从Flutter加载，Flutter没有则从Native加载
+  flutter,
 
-  _FlutterAssetBundle({this.priority = LoadPriority.flutter});
+  ///优先从Native加载，Native没有则从Flutter加载
+  native,
 
-  @override
-  Future<ByteData> load(String key) async {
-    if(key == "AssetManifest.bin"){
-      return await rootBundle.load(key);
-    }
-    if (priority == LoadPriority.flutter) {
-      try {
-        return await rootBundle.load(key);
-      } catch (e) {
-        var nativeKey = keyBuilder?.call(key)??key;
-        return await AssetLoaderPlatform.instance.load(nativeKey);
-      }
-    } else {
-      try {
-        var nativeKey = keyBuilder?.call(key)??key;
-        return await AssetLoaderPlatform.instance.load(nativeKey);
-      } catch (e) {
-        return await rootBundle.load(key);
-      }
-    }
-  }
+  ///仅从Flutter加载，不会从Native加载
+  flutterOnly,
+
+  ///仅从Native加载，不会从Flutter加载
+  nativeOnly
 }
-
-enum LoadPriority { flutter, native }
 
 typedef OnKeyBuilder = String Function(String key);
