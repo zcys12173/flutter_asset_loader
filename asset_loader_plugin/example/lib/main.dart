@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
           print("on key builder call : $key");
           return key;
         },
-        priority: LoadPriority.nativeOnly,
+        priority: LoadPriority.flutter,
         child: MaterialApp(
           home: Scaffold(
             appBar: AppBar(
